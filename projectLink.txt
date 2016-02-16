@@ -1,1 +1,7 @@
-https://github.com/zulip/zulip
+zulip:
+  https://github.com/zulip/zulip
+   
+calypso:
+  https://github.com/Automattic/wp-calypso/blob/master/docs/guide/tech-behind-calypso.md
+  https://github.com/Automattic/wp-calypso
+  
