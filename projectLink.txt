@@ -5,3 +5,5 @@ calypso:
   https://github.com/Automattic/wp-calypso/blob/master/docs/guide/tech-behind-calypso.md
   https://github.com/Automattic/wp-calypso
   
+juqeryUi:
+  很多UI可以用
