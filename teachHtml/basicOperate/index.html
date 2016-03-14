@@ -1,0 +1,91 @@
+﻿<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<div id="Selected" class="panel panel-default">
+  <div class="panel-heading">自我練習: +, -, *運算<button id="limit" style="float:right;" value="0">limit</button><button id="restart" style="float:right;">Restart</button></div>
+  <div class="panel-body" style="overflow:auto;">
+    <div>
+      剩餘時間 : <span id="time">無限制<span>
+    </div>
+    <hr>
+    <div>
+      <span id="question"></span> <input type="text" id="answer" size="10"/>
+    </div>
+    <hr>
+    <div>
+      總答題數 : <span id="Q_All">0</span>  答對 : <span id="Q_T">0</span>  答錯 : <span id="Q_F">0</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#question").text(getQuestion());
+
+  var answer;
+  $("#answer").keydown(function(event){
+    if(event.which == 13)
+    {
+      checkAnswer();
+    }
+  });
+  function checkAnswer()
+  {
+    $("#Q_All").text(parseInt($("#Q_All").text())+1);
+
+    if(answer==$("#answer").val())
+    {
+      $("#Q_T").text(parseInt($("#Q_T").text())+1);
+    }
+    else
+    {
+      $("#Q_F").text(parseInt($("#Q_F").text())+1);
+    }
+    $("#question").text(getQuestion());
+  }
+
+  function getQuestion()
+  {
+    var depth=Math.floor((Math.random() * 3) + 1);
+    var question = Math.floor(Math.random() * 100);
+    var operate=["+", "-", "*"]
+    for(var i=0;i<depth;i++)
+    {
+      question+=operate[Math.floor(Math.random() * 3)]+Math.floor(Math.random() * 100);
+    }
+    eval("answer="+question);
+    $("#answer").val("");
+    return question+="=";
+  }
+  $("#restart").click(function(){
+    $("#Q_All").text("0");
+    $("#Q_T").text("0");
+    $("#Q_F").text("0");
+    $("#question").text(getQuestion());
+  });
+
+  var Timer;
+  var timeLimit=5;
+  $("#limit").click(function(){
+    $("#limit").val($("#limit").val()^1);
+    if($("#limit").val()==1){
+      $("#time").text(timeLimit);
+      Timer = setInterval(remindLimit, 1000);
+    }
+    else
+    {
+      clearInterval(Timer);
+      $("#time").text("無限制");
+    }
+  });
+  function remindLimit(){
+    if($("#time").text()=="0")
+    {
+      checkAnswer();
+      $("#time").text(timeLimit+1);
+    }
+    $("#time").text($("#time").text()-1);
+  }
+
+</script>
